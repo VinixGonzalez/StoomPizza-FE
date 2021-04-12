@@ -1,4 +1,4 @@
-# Stoom Pizza
+# Stoom Pizza - Front End
 
 - Para rodar este projeto, inicie primeiro o backend.
 
