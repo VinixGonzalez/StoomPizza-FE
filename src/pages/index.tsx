@@ -80,18 +80,26 @@ const Home: React.FC<HomeProps> = ({ stoomPizzaData }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await API.get("/pizza/restaurantData");
+  try {
+    const response = await API.get("/pizza/restaurantData");
 
-  if (response.status !== 200) {
-    return null;
+    if (response.status !== 200) {
+      return null;
+    }
+
+    const stoomPizzaData: PizzaContextModel = response.data;
+
+    return {
+      props: {
+        stoomPizzaData,
+      },
+      revalidate: 60 * 60 * 2, // 2 hours
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      props: {},
+      revalidate: 60 * 60 * 2, // 2 hours
+    };
   }
-
-  const stoomPizzaData: PizzaContextModel = response.data;
-
-  return {
-    props: {
-      stoomPizzaData,
-    },
-    revalidate: 60 * 60 * 2, // 2 hours
-  };
 };

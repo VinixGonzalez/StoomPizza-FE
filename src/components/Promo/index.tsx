@@ -18,9 +18,9 @@ export const Promo: React.FC = () => {
   } = useContext(StepsContext);
 
   const handlePizzaPromo = () => {
-    const { id, doughId, sizeId } = pizzaData.promoDay;
+    const { id, doughId, sizeId } = pizzaData?.promoDay;
 
-    const flavorChoosed = pizzaData.menu.pizzaList.find(
+    const flavorChoosed = pizzaData?.menu.pizzaList.find(
       (pizza) => pizza.id === id
     );
     const doughChoosed = pizzaData.doughTypes.find(
@@ -54,49 +54,60 @@ export const Promo: React.FC = () => {
 
   return (
     <Card>
-      <Text
-        as="h2"
-        displayText={pizzaData.promoDay.pizzaName}
-        align="center"
-        font="Dancing Script"
-        size="normal"
-        color="var(--red-primary)"
-      />
-      <Img src={pizzaData.promoDay.picture} alt="promo picture" />
-      <Text
-        as="h3"
-        displayText="Recomendação do dia!"
-        align="center"
-        font="Dancing Script"
-        color="var(--red-primary)"
-        size="md"
-      />
-      <ContentContainer mt={15}>
+      {pizzaData ? (
+        <>
+          <Text
+            as="h2"
+            displayText={pizzaData?.promoDay.pizzaName}
+            align="center"
+            font="Dancing Script"
+            size="normal"
+            color="var(--red-primary)"
+          />
+          <Img src={pizzaData?.promoDay.picture} alt="promo picture" />
+          <Text
+            as="h3"
+            displayText="Recomendação do dia!"
+            align="center"
+            font="Dancing Script"
+            color="var(--red-primary)"
+            size="md"
+          />
+          <ContentContainer mt={15}>
+            <Text
+              as="p"
+              displayText={`Ganhe + ${pizzaData?.promoDay.points} pontos!`}
+              align="center"
+              font="Maven Pro"
+              size="sm"
+              color="var(--text-primary)"
+              weight={500}
+            />
+            <Text
+              as="p"
+              displayText={`Por ${new Intl.NumberFormat("pt-BR", {
+                currency: "BRL",
+                style: "currency",
+              }).format(pizzaData?.promoDay.price)}`}
+              align="center"
+              font="Maven Pro"
+              size="sm"
+              color="var(--red-primary)"
+              weight={500}
+            />
+          </ContentContainer>
+          <ContentContainer mt={15}>
+            <Button text="Eu quero!" onClick={handlePizzaPromo} />
+          </ContentContainer>
+        </>
+      ) : (
         <Text
-          as="p"
-          displayText={`Ganhe + ${pizzaData.promoDay.points} pontos!`}
           align="center"
-          font="Maven Pro"
-          size="sm"
-          color="var(--text-primary)"
-          weight={500}
-        />
-        <Text
-          as="p"
-          displayText={`Por ${new Intl.NumberFormat("pt-BR", {
-            currency: "BRL",
-            style: "currency",
-          }).format(pizzaData.promoDay.price)}`}
-          align="center"
-          font="Maven Pro"
-          size="sm"
+          as="h3"
+          displayText="Sem promoções"
           color="var(--red-primary)"
-          weight={500}
         />
-      </ContentContainer>
-      <ContentContainer mt={15}>
-        <Button text="Eu quero!" onClick={handlePizzaPromo} />
-      </ContentContainer>
+      )}
     </Card>
   );
 };

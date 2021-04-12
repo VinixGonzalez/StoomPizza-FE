@@ -30,14 +30,24 @@ export const Step1: React.FC = () => {
 
   return (
     <StepContainer currentStep={currentStep}>
-      <Text
-        as="h2"
-        displayText="Escolha o sabor da sua pizza!"
-        align="center"
-        color="var(--red-primary)"
-        weight={700}
-      />
-      {pizzaData.menu.pizzaList.map((pizza: PizzaFlavorChoosedProps) => (
+      {pizzaData ? (
+        <Text
+          as="h2"
+          displayText="Escolha o sabor da sua pizza!"
+          align="center"
+          color="var(--red-primary)"
+          weight={700}
+        />
+      ) : (
+        <Text
+          as="h2"
+          displayText="Nenhum item no cardápio"
+          align="center"
+          color="var(--red-primary)"
+          weight={700}
+        />
+      )}
+      {pizzaData?.menu.pizzaList.map((pizza: PizzaFlavorChoosedProps) => (
         <PizzaFlavor flavorChoosed={flavor?.id === pizza.id} key={pizza.id}>
           <ContentContainer width={237}>
             <img src={pizza.picture} alt="pizza image" />

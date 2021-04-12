@@ -65,7 +65,7 @@ export const OrderDetails: React.FC = () => {
                       currency: "BRL",
                       style: "currency",
                     }).format(
-                      isPromoOrder ? pizzaData.promoDay.price : size.price
+                      isPromoOrder ? pizzaData?.promoDay.price : size.price
                     )
                   : "-"
               }
@@ -76,7 +76,7 @@ export const OrderDetails: React.FC = () => {
               <Text
                 align="center"
                 as="p"
-                displayText={`Você vai ganhar ${pizzaData.promoDay.points} pontos!`}
+                displayText={`Você vai ganhar ${pizzaData?.promoDay.points} pontos!`}
               />
             </ContentContainer>
           )}
